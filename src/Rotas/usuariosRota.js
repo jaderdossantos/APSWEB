@@ -6,12 +6,27 @@ const usuariosRota = express.Router();
 
 // Listar usuários
 usuariosRota.get('/', async (req, res) => {
+  try {
+    const { email } = req.query;
 
-    const usuarios = await prisma.Usuario.findMany()
+    if (!email) {
+      return res.status(400).json({ error: 'Informe um e-mail para buscar o usuário.' });
+    }
 
-    res.status(200).json(usuarios)
-})
+    const usuario = await prisma.Usuario.findUnique({
+      where: { email },
+    });
 
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuário não encontrado.' });
+    }
+
+    res.json(usuario);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao buscar usuário.' });
+  }
+});
 
 // Criar usuário
 usuariosRota.post('/', async (req, res) => {
