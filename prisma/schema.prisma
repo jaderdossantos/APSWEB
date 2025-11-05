@@ -14,3 +14,19 @@ model Usuario {
   nome     String
   senha  String
 }
+
+model Musica {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  nome    String
+  artista String
+
+  @@unique([nome, artista]) 
+}
+
+model Manga {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  manga String 
+  capitulo  Int
+
+  @@unique([manga, capitulo]) 
+}

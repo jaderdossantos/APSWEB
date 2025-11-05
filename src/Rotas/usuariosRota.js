@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const usuariosRota = express.Router();
 
-// Listar usuários
+
 usuariosRota.get('/', async (req, res) => {
   try {
     const { email } = req.query;
@@ -28,7 +28,7 @@ usuariosRota.get('/', async (req, res) => {
   }
 });
 
-// Criar usuário
+
 usuariosRota.post('/', async (req, res) => {
 
    await prisma.Usuario.create({
@@ -42,7 +42,7 @@ usuariosRota.post('/', async (req, res) => {
     res.status(201).json(req.body)
 })
 
-// Atualizar usuário
+
 usuariosRota.put('/:id', async (req, res) => {
 
    await prisma.Usuario.update({
@@ -57,7 +57,7 @@ usuariosRota.put('/:id', async (req, res) => {
 })
     res.status(201).json(req.body)
 })
-// Deletar usuário
+
 usuariosRota.delete('/:id', async (req, res) => {
     await prisma.Usuario.delete({
         where: {
